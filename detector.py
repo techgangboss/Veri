@@ -5,60 +5,60 @@ import datetime
 from matplotlib.dates import drange
 
 
-lines  = []
 
+#____________________
+
+# lines1  = []
+#
+# #Build List
+# with open('record.csv') as f:
+#    for line1 in f:
+#        if line1!='\n':
+#            if 'Name' not in line1:
+#                if 'New_York' not in line1:
+#                 lines1.append(line1.replace("\n","").split(","))
+#
+#
+# #Name | Device Type | IP | MAC | Last Seen
+#
+#
+# mac_list1 = []
+# for m1 in lines1:
+#     mac1 = m1[3]
+#     if mac1 not in mac_list1:
+#         mac_list1.append(mac1)
+#
+# print len(mac_list1)
+#_________________
+
+#____________________
+
+lines2  = []
+refined = []
+i = 0
 #Build List
-with open('record.csv') as f:
-   for line in f:
-       if line!='\n':
-           if 'Name' not in line:
-               if 'New_York' not in line:
-                lines.append(line.replace("\n","").split(","))
+with open('record3_10.csv') as f:
+   lines2 = f.read().splitlines()
 
 
+#Refine List
+for m in lines2:
+    if ',,' not in m:
+        if 'Seen' not in m:
+            refined.append(m.split(","))
+
+
+
+
+#Check unique addresses
+#MAC at location 3
 #Name | Device Type | IP | MAC | Last Seen
 
-#Build record for one
-def buildRecord(lines, z):
-    personOne = []
-    personOneIdentify = []
-    personOneTimes = []
 
-    personOneIdentify.append(lines[0][0])
-    personOneIdentify.append(lines[0][1])
-    personOneIdentify.append(lines[0][2])
-    personOneIdentify.append(lines[0][3])
+mac_list1 = []
+for m1 in refined:
+    mac1 = m1[3]
+    if mac1 not in mac_list1:
+        mac_list1.append(mac1)
 
-
-    for m in lines:
-        if m[2] == personOneIdentify[2]:
-            personOneTimes.append(m[4])
-
-    personOne.append(personOneIdentify)
-    personOne.append(personOneTimes)
-
-    # print len(personOneTimes)
-
-    # print personOne
-
-
-
-    timelist = []
-
-    for r in personOneTimes:
-        r1 = r.split(" ")[1]
-        timelist.append(parser.parse(r))
-
-
-    x = [1]*len(timelist)
-    return x
-
-usrlist = []
-rcd = []
-for z in range(len(lines)):
-    rcd.append(z)
-    usrlist.append(buildRecord(lines,z))
-
-
-plt.scatter(usrlist[0],rcd[0])
-plt.show()
+print len(mac_list1)
