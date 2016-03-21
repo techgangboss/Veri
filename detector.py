@@ -65,17 +65,54 @@ def buildMacList(refined):
 
 #Compare multiple files
 
-def getSuperList(mac_list1,mac_list2):
-    superList = []
-    for q in mac_list1:
-        if q in mac_list2:
-            superList.append(q)
+def getCommonList(time_list1,time_list2):
+    common_list = []
+    for q in time_list1:
+        for m in time_list2:
+            if q[3] == m[3]:
+                s1 = []
+                s1.append(q[0])
+                s1.append(q[1])
+                s1.append(q[2])
+                s1.append(q[3])
+                common_list.append(s1)
 
-    print(len(superList))
-    pass
+    #print(len(common_list))
+    return common_list
+
+
+#Adds to already present superlist
+#Adds data from a timelist
+def addtoSuperList(superList,newlist):
+    diff = 0
+    for ln in newlist:
+        for idx in range(len(superList)):
+            if ln[3] == superList[idx][3]:
+                print len(superList[idx][4])
+                superList[idx][4].append(newlist[4])
+                print len(superList[idx][4])
+            # else:
+            #     time_inst = []
+            #     time_inst_times = []
+            #     time_inst.append(ln[0])
+            #     time_inst.append(ln[1])
+            #     time_inst.append(ln[2])
+            #     time_inst.append(ln[3])
+            #     time_inst_times.append(ln[4])
+            #     time_inst.append(time_inst_times)
+            #     superList.append(time_inst)
+
+        #print ".",
+
+
+
+    return superList
 
 
 list1 = buildList('record2.csv')
 list2 = buildList('record3_10.csv')
 u1,t1 = buildMacList(list1)
 u2,t2 = buildMacList(list2)
+
+supList = addtoSuperList(t2,t1)
+#print(str(len(t2)) + " element")
